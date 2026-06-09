@@ -12,8 +12,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" as="script">
-  <script type="module" crossorigin src="/siapskd/assets/index-MFas7hkt.js"></script>
-  <link rel="stylesheet" crossorigin href="/siapskd/assets/index-7D-FZnb4.css">
+  <script type="module" crossorigin src="/siapskd/assets/index-C0cg_Yip.js"></script>
+  <link rel="stylesheet" crossorigin href="/siapskd/assets/index-C-nsp6mn.css">
 </head>
 
 <body>
@@ -83,6 +83,149 @@
             </div>
         </div>
 
+        <!-- LANDING SCREEN -->
+        <div id="landing-screen" class="view hidden">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1>Taklukkan SKD CPNS 2026.<br><span class="hero-highlight">Lebih Cepat. Lebih Akurat.</span></h1>
+                    <p class="hero-subtitle">Platform simulasi CAT teringan tanpa loading lama. Dilengkapi analisis kelemahan dan soal HOTS sesuai FR (Field Report) terbaru.</p>
+                    <div class="hero-cta-group">
+                        <button id="hero-primary-cta" class="primary-btn landing-cta-btn premium-btn-accent" type="button">🚀 Coba 5 Soal Sekarang (Tanpa Login)</button>
+                        <button id="hero-secondary-cta" class="secondary-btn landing-cta-btn" type="button">Masuk / Daftar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Frictionless Hook Section -->
+            <section class="hook-section">
+                <div class="section-header">
+                    <span class="section-eyebrow">PEMANASAN INSTAN</span>
+                    <h2>Jangan Buang Waktu. Langsung Pemanasan.</h2>
+                    <p class="section-copy">Tidak perlu isi form panjang atau bayar di awal. Buktikan sendiri kualitas soal kami.</p>
+                </div>
+                <div class="hook-features-grid">
+                    <div class="hook-feature-card">
+                        <div class="hook-feature-icon">⚡</div>
+                        <h3>Akses Instan</h3>
+                        <p>Klik dan langsung jawab tanpa hambatan.</p>
+                    </div>
+                    <div class="hook-feature-card">
+                        <div class="hook-feature-icon">🧠</div>
+                        <h3>Soal Terkurasi</h3>
+                        <p>Mencakup TWK, TIU, dan TKP dasar berkualitas tinggi.</p>
+                    </div>
+                    <div class="hook-feature-card">
+                        <div class="hook-feature-icon">✅</div>
+                        <h3>Pembahasan Langsung</h3>
+                        <p>Tahu jawaban benarnya detik itu juga saat Anda menjawab.</p>
+                    </div>
+                </div>
+                <!-- Mini Module Selectors for Instant Start -->
+                <div class="instant-picker-container">
+                    <p class="instant-picker-label">Mulai pemanasan sekarang, pilih kategori:</p>
+                    <div class="instant-picker-buttons">
+                        <button class="instant-picker-btn twk" data-module="twk">TWK (Wawasan Kebangsaan)</button>
+                        <button class="instant-picker-btn tiu" data-module="tiu">TIU (Inteligensia Umum)</button>
+                        <button class="instant-picker-btn tkp" data-module="tkp">TKP (Karakteristik Pribadi)</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Why Choose Us Section -->
+            <section class="why-us-section">
+                <div class="section-header">
+                    <span class="section-eyebrow">KEUNGGULAN KAMI</span>
+                    <h2>Mengapa Latihan di Sini Beda?</h2>
+                </div>
+                <div class="why-us-grid">
+                    <div class="why-us-card">
+                        <div class="why-us-card-icon">🚀</div>
+                        <h3>Super Ringan & Anti-Ngelag</h3>
+                        <p>Dibangun dengan teknologi modern. Simulasi lancar meski kuota menipis. Progress kamu tersimpan otomatis, anti-panik kalau browser tertutup.</p>
+                    </div>
+                    <div class="why-us-card">
+                        <div class="why-us-card-icon">⚙️</div>
+                        <h3>Fleksibilitas Total</h3>
+                        <p>Punya waktu luang 10 menit di jalan? Gunakan Learning Mode. Ingin simulasi penuh 100 menit? Gunakan Test Mode. Kamu yang atur jumlah soalnya.</p>
+                    </div>
+                    <div class="why-us-card premium-card">
+                        <div class="why-us-card-icon">🔒</div>
+                        <h3>Analisis Titik Lemah <span class="premium-badge">Premium</span></h3>
+                        <p>Jangan buang waktu mempelajari yang sudah kamu kuasai. Sistem kami mendeteksi materi spesifik yang paling sering membuatmu salah.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tiered Pricing / Upgrade Funnel -->
+            <section class="pricing-section">
+                <div class="section-header">
+                    <span class="section-eyebrow">HARGA & FITUR</span>
+                    <h2>Pilih Jalur Lulusmu</h2>
+                </div>
+                <div class="pricing-grid">
+                    <!-- Guest Tier -->
+                    <div class="pricing-card guest-tier">
+                        <div class="pricing-card-header">
+                            <h3>Tamu (Guest)</h3>
+                            <div class="price">Rp 0</div>
+                            <p class="pricing-subtitle">Pemanasan kilat.</p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>5 Soal / hari</li>
+                            <li>Materi Basic & Intermediate</li>
+                            <li>Learning & Test Mode</li>
+                            <li class="check">Tanpa Perlu Login</li>
+                        </ul>
+                        <button id="btn-tier-guest" class="pricing-btn-action guest-free-btn-style" type="button">Mulai Latihan</button>
+                    </div>
+
+                    <!-- Free Tier -->
+                    <div class="pricing-card free-tier popular-tier">
+                        <div class="pricing-badge-popular">TERPOPULER</div>
+                        <div class="pricing-card-header">
+                            <h3>Pejuang (Free)</h3>
+                            <div class="price">Rp 0</div>
+                            <p class="pricing-subtitle">Latihan rutin setiap hari.</p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>40 Soal / hari</li>
+                            <li>Materi Basic & Intermediate</li>
+                            <li>Learning & Test Mode</li>
+                            <li class="check">Simpan Riwayat Skor</li>
+                        </ul>
+                        <button id="btn-tier-free" class="pricing-btn-action guest-free-btn-style" type="button">Buat Akun Gratis</button>
+                    </div>
+
+                    <!-- Premium Tier -->
+                    <div class="pricing-card premium-tier highlight-pricing-card">
+                        <div class="pricing-card-header">
+                            <h3>Abdi Negara (Premium)</h3>
+                            <div class="price">Rp 49.000<span class="price-period">/ paket</span></div>
+                            <p class="pricing-subtitle">Persiapan maksimal, tanpa batas.</p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Akses Semua Soal (Unlimited)</li>
+                            <li>Unlock Soal HOTS & Berdasarkan FR</li>
+                            <li>Tryout Penuh (110 Soal / 100 Menit)</li>
+                            <li>Analisis Kelemahan Topik</li>
+                        </ul>
+                        <button id="btn-tier-premium" class="pricing-btn-action premium-btn-style" type="button">Upgrade Premium Sekarang</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Social Proof / Urgency Footer Area -->
+            <footer class="landing-footer">
+                <div class="footer-urgency">
+                    <p>"Jutaan orang memperebutkan kursi CPNS tahun ini. Jangan sampai gagal hanya karena kurang terbiasa dengan format CAT dan soal HOTS. Mulai cicil persiapanmu hari ini."</p>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 SKD Training Platform. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+
         <!-- MENU -->
         <div id="menu-screen" class="view">
             <header>
@@ -150,11 +293,10 @@
                         <h2>Pilih Try Out</h2>
                     </div>
                 </div>
-                <p class="modal-description">Pilih set try out yang tersedia. Riwayat dan pembahasan muncul setelah set pernah dikerjakan.</p>
                 <p id="tryout-set-status" class="tryout-set-status"></p>
                 <div id="tryout-set-list" class="tryout-set-list"></div>
-                <div class="mode-confirmation-footer">
-                    <button class="text-btn" type="button" data-action="show-menu">Kembali ke Menu</button>
+                <div class="mode-confirmation-footer compact-footer">
+                    <button class="text-btn sm-back-btn" type="button" data-action="show-menu">← Kembali ke Menu</button>
                 </div>
             </div>
         </div>
@@ -360,6 +502,27 @@
                 </div>
                 <p id="payment-modal-status" class="payment-modal-status">Menyiapkan pembayaranâ€¦</p>
                 <div id="snap-container" class="snap-container" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <!-- PAYWALL INTERCEPT MODAL -->
+        <div id="paywall-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="paywall-modal-title">
+            <div class="modal-content card paywall-modal-panel">
+                <div class="paywall-modal-header">
+                    <div class="paywall-modal-icon">🚀</div>
+                    <div>
+                        <p class="paywall-modal-eyebrow">Batas Latihan Harian</p>
+                        <h3 id="paywall-modal-title">Latihan Hari Ini Sudah Maksimal!</h3>
+                    </div>
+                </div>
+                <p class="paywall-modal-copy">Ingin lanjut ke soal ke-6? Buat akun gratis (kurang dari 1 menit) dan dapatkan 40 soal setiap hari.</p>
+                <div class="paywall-action-stack">
+                    <button id="paywall-signup-btn" class="primary-btn guest-free-btn-style" type="button">Buat Akun Gratis</button>
+                    <button id="paywall-results-btn" class="secondary-btn" type="button">Lihat Hasil Latihan</button>
+                </div>
+                <div class="paywall-modal-actions">
+                    <button id="paywall-close-btn" class="text-btn paywall-close-btn" type="button">Kembali ke Ujian</button>
+                </div>
             </div>
         </div>
 
