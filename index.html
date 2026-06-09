@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Platform latihan SKD (Seleksi Kompetensi Dasar) - TWK, TIU, dan TKP dengan mode Learning & Test">
+    <meta name="theme-color" content="#3b82f6">
+
+    <title>SKD Training Platform</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" as="script">
+  <script type="module" crossorigin src="/assets/index-Bplxf2FL.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-7D-FZnb4.css">
+</head>
+
+<body>
+    <script>
+        (function () {
+            if (location.protocol !== 'file:') return;
+            document.addEventListener('DOMContentLoaded', function () {
+                var banner = document.createElement('div');
+                banner.id = 'file-protocol-warning';
+                banner.setAttribute('role', 'alert');
+                banner.innerHTML =
+                    '<strong>App must be served over HTTP.</strong> Opening index.html directly disables JavaScript modules. ' +
+                    'In the project folder run: <code>npm run dev</code> then open <code>http://localhost:3000</code> ' +
+                    '(or use the VS Code / Cursor “Live Server” extension).';
+                document.body.prepend(banner);
+            });
+        })();
+    </script>
+    <div class="app-container">
+
+        <div id="auth-status-bar" class="status-bar compact">
+            <div class="status-bar-left">
+                <span id="user-display" aria-live="polite"></span>
+                <span id="quota-chip" class="quota-chip">Kuota: —</span>
+            </div>
+            <div class="status-bar-right">
+                <button id="theme-toggle" class="text-btn" aria-label="Toggle dark mode" type="button">🌙</button>
+                <div id="auth-actions" role="group"></div>
+            </div>
+        </div>
+
+        <nav id="main-nav" class="main-nav">
+            <button class="text-btn" type="button" data-action="show-menu">Beranda</button>
+            <button class="text-btn" type="button" data-action="show-progress">Progres</button>
+            <button class="text-btn" type="button" data-action="show-bookmarks">Bookmark</button>
+            <button class="text-btn upgrade-nav-btn" type="button" data-action="show-upgrade">Upgrade</button>
+        </nav>
+
+        <!-- AUTH MODAL -->
+        <div id="auth-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+            <div class="modal-content card auth-modal-panel">
+                <div class="auth-modal-header">
+                    <div class="auth-modal-icon">🔐</div>
+                    <div>
+                        <p class="auth-modal-eyebrow">Akun SKD</p>
+                        <h3 id="auth-modal-title">Masuk</h3>
+                    </div>
+                </div>
+                <p class="auth-modal-copy">Masuk untuk kuota 40 soal/hari (Free). Tamu hanya demo 5 soal/hari.</p>
+                <label class="auth-field-label" for="auth-email">Alamat Email</label>
+                <input type="email" id="auth-email" class="auth-input" placeholder="nama@contoh.com"
+                    autocomplete="email" autocapitalize="none" autocorrect="off" inputmode="email" required>
+                <label class="auth-field-label" for="auth-password">Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="auth-password" class="auth-input" placeholder="••••••••"
+                        autocomplete="current-password" required>
+                    <button type="button" id="toggle-password-btn" class="password-toggle-btn" aria-label="Tampilkan password">👁️</button>
+                </div>
+                <p id="auth-error-hint" class="auth-error-hint hidden" role="alert"></p>
+                <form id="auth-form" class="auth-action-stack" autocomplete="on">
+                    <button id="auth-primary-btn" class="primary-btn" type="submit">Masuk</button>
+                    <button id="auth-switch-btn" class="secondary-btn auth-switch-btn" type="button">Belum punya akun? Daftar</button>
+                </form>
+                <div class="auth-modal-actions">
+                    <button id="auth-close-btn" class="text-btn auth-close-btn" type="button">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENU -->
+        <div id="menu-screen" class="view">
+            <header>
+                <h1>SKD Training</h1>
+                <p class="subtitle">Latihan Seleksi Kompetensi Dasar — TWK, TIU, TKP</p>
+            </header>
+            <div id="menu-upgrade-bar" class="menu-upgrade-bar">
+                <p>Buka semua soal HOTS, simulasi ujian penuh, dan analitik detail.</p>
+                <button class="primary-btn sm" type="button" data-action="show-upgrade">Upgrade Premium</button>
+            </div>
+            <main>
+                <h3>Pilih Modul</h3>
+                <div id="menu-categories" class="menu-grid" role="list"></div>
+            </main>
+            <div id="menu-ad-slot" class="menu-ad-slot hidden">
+                <p class="ad-placeholder">Iklan — hilang di tier Premium</p>
+            </div>
+        </div>
+
+        <!-- MODE SELECTION -->
+        <div id="mode-modal" class="view hidden modal" role="dialog" aria-modal="true">
+            <div class="modal-content card mode-confirmation-panel">
+                <div class="mode-confirmation-header">
+                    <div class="mode-confirmation-icon">⚙️</div>
+                    <div class="mode-confirmation-copy">
+                        <p class="mode-confirmation-eyebrow">Konfirmasi Mode</p>
+                        <h2 id="modal-quiz-title">Pilih Mode</h2>
+                    </div>
+                </div>
+                <p class="modal-description">Learning: feedback langsung. Test: simulasi ujian dengan timer (45 detik/soal).</p>
+                <div class="session-config card-inset">
+                    <label class="auth-field-label" for="session-question-count">Jumlah soal sesi ini</label>
+                    <input type="number" id="session-question-count" class="auth-input session-count-input" min="1" max="35" value="15">
+                    <p id="session-count-hint" class="session-count-hint">Pilih jumlah soal sesuai kuota tier Anda.</p>
+                </div>
+                <div class="mode-choice-grid">
+                    <button class="mode-choice-card learning-mode" type="button" data-action="confirm-learning">
+                        <span class="mode-choice-icon">📖</span>
+                        <span class="mode-choice-copy">
+                            <span class="mode-choice-title">Learning Mode</span>
+                            <span class="mode-choice-subtitle">Belajar dengan pembahasan setelah jawab.</span>
+                        </span>
+                    </button>
+                    <button class="mode-choice-card test-mode" type="button" data-action="confirm-test">
+                        <span class="mode-choice-icon">⏱️</span>
+                        <span class="mode-choice-copy">
+                            <span class="mode-choice-title">Test Mode</span>
+                            <span class="mode-choice-subtitle">Simulasi ujian dengan timer.</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="mode-confirmation-footer">
+                    <button class="text-btn" type="button" data-action="show-menu">Kembali ke Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRY OUT SET SELECTION -->
+        <div id="tryout-modal" class="view hidden modal" role="dialog" aria-modal="true">
+            <div class="modal-content card tryout-selection-panel">
+                <div class="mode-confirmation-header">
+                    <div class="mode-confirmation-icon">TO</div>
+                    <div class="mode-confirmation-copy">
+                        <p class="mode-confirmation-eyebrow">Simulasi SKD</p>
+                        <h2>Pilih Try Out</h2>
+                    </div>
+                </div>
+                <p class="modal-description">Pilih set try out yang tersedia. Riwayat dan pembahasan muncul setelah set pernah dikerjakan.</p>
+                <p id="tryout-set-status" class="tryout-set-status"></p>
+                <div id="tryout-set-list" class="tryout-set-list"></div>
+                <div class="mode-confirmation-footer">
+                    <button class="text-btn" type="button" data-action="show-menu">Kembali ke Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ -->
+        <div id="quiz-screen" class="view hidden">
+            <div id="quiz-watermark" class="quiz-watermark hidden" aria-hidden="true">SKD DEMO · FREE TIER</div>
+            <div class="quiz-shell">
+                <section class="quiz-top-panel compact">
+                    <div class="quiz-top-copy">
+                        <h2 id="quiz-module-title" class="quiz-module-title"></h2>
+                        <span id="quiz-mode-badge" class="quiz-mode-badge">Practice Mode</span>
+                    </div>
+                    <div class="quiz-top-actions">
+                        <button id="nav-btn" class="quiz-icon-btn" type="button" aria-label="Navigasi Soal">📋</button>
+                        <button id="quit-btn" class="quiz-icon-btn quit" type="button" aria-label="Keluar">✕</button>
+                    </div>
+                </section>
+                <section class="quiz-progress-panel slim">
+                    <div class="quiz-progress-copy">
+                        <p id="progressText" class="quiz-progress-text">Soal 1 / 20</p>
+                        <span id="timer" class="timer-badge" aria-live="polite"></span>
+                    </div>
+                    <div class="progress-container" aria-hidden="true">
+                        <div id="progressBar" class="progress-fill"></div>
+                    </div>
+                </section>
+                <main class="quiz-content-scroll">
+                    <section class="card quiz-main">
+                        <h2 id="question" class="question-text"></h2>
+                        <div class="options-heading">Jawaban yang tersedia</div>
+                        <div id="options" class="options-grid" role="radiogroup"></div>
+                        <div id="feedback" class="feedback-area hidden" aria-live="polite">
+                            <div class="feedback-header">
+                                <span class="feedback-dot"></span>
+                                <p id="feedback-text" class="feedback-result"></p>
+                            </div>
+                            <p id="explanation" class="explanation-text"></p>
+                        </div>
+                    </section>
+                </main>
+                <footer class="fixed-bottom-nav">
+                    <button id="prevBtn" class="nav-btn secondary" type="button">← Kembali</button>
+                    <button id="doubtBtn" class="nav-btn doubt-btn" type="button">🤔 Ragu</button>
+                    <button id="nextBtn" class="nav-btn primary" type="button">Lanjut →</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- SUBMIT MODAL -->
+        <div id="submit-modal" class="modal hidden" role="dialog" aria-modal="true">
+            <div class="modal-content card submit-confirmation-panel">
+                <h3>Submit Ujian</h3>
+                <div class="submit-summary-grid">
+                    <div class="summary-card"><span class="summary-label">Total</span><strong id="submit-total-count">0</strong></div>
+                    <div class="summary-card"><span class="summary-label">Belum dijawab</span><strong id="submit-unanswered-count">0</strong></div>
+                    <div class="summary-card flagged-card"><span class="summary-label">Ditandai</span><strong id="submit-flagged-count-modal">0</strong></div>
+                </div>
+                <div id="submit-review-hint" class="submit-review-hint hidden">
+                    <p>Review soal yang ditandai sebelum submit.</p>
+                </div>
+                <div class="submit-modal-actions">
+                    <button class="secondary-btn" type="button" data-action="close-submit">Kembali & Review</button>
+                    <button class="primary-btn" type="button" data-action="submit-exam">Submit Ujian</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="question-nav-panel" class="slide-panel" aria-label="Navigasi soal">
+            <div class="slide-panel-shell">
+                <div class="slide-panel-header">
+                    <p class="slide-panel-title">Navigasi Soal</p>
+                    <button type="button" class="text-btn" onclick="closeQuestionPanel()">✕</button>
+                </div>
+                <div class="slide-panel-stats">
+                    <span id="panel-answered-count" class="nav-chip">Terjawab 0</span>
+                    <span id="panel-flagged-count" class="nav-chip flagged">Ragu 0</span>
+                    <span id="panel-remaining-count" class="nav-chip">Tersisa 0</span>
+                </div>
+                <div id="slide-question-grid" class="question-grid"></div>
+            </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div id="results-screen" class="view hidden">
+            <main class="card results-panel">
+                <section class="results-header">
+                    <div>
+                        <p class="results-eyebrow">Hasil Ujian</p>
+                        <h1 id="quiz-title-summary">Modul Selesai</h1>
+                    </div>
+                </section>
+                <div class="results-score-block">
+                    <div class="score-circle-container">
+                        <svg class="score-svg" viewBox="0 0 100 100">
+                            <circle class="score-bg-ring" cx="50" cy="50" r="44"></circle>
+                            <circle id="score-progress-ring" class="score-progress-ring" cx="50" cy="50" r="44"></circle>
+                        </svg>
+                        <div class="score-circle-text">
+                            <span id="final-score">0</span>
+                            <span class="score-label">Skor</span>
+                        </div>
+                    </div>
+                    <p id="results-performance-text" class="results-performance-text"></p>
+                </div>
+                <div class="results-metrics">
+                    <div class="metric-card success-card">
+                        <span class="metric-label">Benar / Total</span>
+                        <strong id="results-correct-count">0</strong>
+                    </div>
+                    <div class="metric-card warning-card">
+                        <span class="metric-label">Tidak Dijawab</span>
+                        <strong id="results-unanswered-count">0</strong>
+                    </div>
+                </div>
+                <div id="results-pacing-section" class="results-pacing-section"></div>
+                <div class="results-actions">
+                    <button id="review-toggle-btn" class="secondary-btn" type="button">Lihat Pembahasan</button>
+                    <button class="primary-btn" type="button" data-action="show-menu">Kembali ke Menu</button>
+                </div>
+                <div id="review-section" class="review-list hidden">
+                    <h3>Pembahasan</h3>
+                    <div id="review-container"></div>
+                </div>
+            </main>
+        </div>
+
+        <!-- PROGRESS -->
+        <div id="progress-screen" class="view hidden">
+            <main class="card">
+                <header>
+                    <h2>Progres Belajar</h2>
+                    <button class="text-btn" type="button" data-action="show-menu">← Menu</button>
+                </header>
+                <section id="progress-basic">
+                    <h3>Ringkasan Modul</h3>
+                    <div id="progress-modules" class="results-metrics"></div>
+                </section>
+                <section>
+                    <h3>Riwayat Percobaan</h3>
+                    <div id="progress-attempts-list" class="attempts-list"></div>
+                </section>
+                <section id="progress-detailed" class="hidden">
+                    <h3>Topik Lemah (Premium)</h3>
+                    <div id="progress-weak-topics" class="weak-topics-list"></div>
+                </section>
+                <section id="progress-leaderboard-section" class="progress-leaderboard-section">
+                    <div class="leaderboard-header-row">
+                        <h3>Peringkat Nasional</h3>
+                        <select id="leaderboard-module-select" class="compact-select">
+                            <option value="twk">TWK</option>
+                            <option value="tiu">TIU</option>
+                            <option value="tkp">TKP</option>
+                            <option value="tryout">Try Out</option>
+                        </select>
+                    </div>
+                    <div id="progress-leaderboard-list" class="leaderboard-list"></div>
+                </section>
+            </main>
+        </div>
+
+        <!-- BOOKMARKS -->
+        <div id="bookmarks-screen" class="view hidden">
+            <main class="card">
+                <header>
+                    <h2>Bookmark</h2>
+                    <span id="bookmarks-cap" class="quota-chip"></span>
+                    <button class="text-btn" type="button" data-action="show-menu">← Menu</button>
+                </header>
+                <div id="bookmarks-list" class="bookmarks-list"></div>
+            </main>
+        </div>
+
+        <!-- UPGRADE -->
+        <div id="upgrade-screen" class="view hidden">
+            <main class="card upgrade-panel">
+                <header>
+                    <h2>Upgrade Premium</h2>
+                    <button class="text-btn" type="button" data-action="show-menu">← Menu</button>
+                </header>
+                <ul class="upgrade-features">
+                    <li>Akses semua soal (termasuk tingkat Advanced & HOTS yang disesuaikan dengan tren ujian asli / Field Report/FR terbaru)</li>
+                    <li>Kuota harian tanpa batas</li>
+                    <li>Try Out 110 soal · 100 menit (Premium)</li>
+                    <li>Simulasi ujian penuh per modul</li>
+                    <li>Pembahasan lengkap + referensi</li>
+                    <li>Analitik topik lemah & Kecepatan Pacing</li>
+                    <li>Bookmark tanpa batas · Tanpa watermark</li>
+                </ul>
+                <div id="upgrade-plans" class="upgrade-plans-grid"></div>
+                <p id="upgrade-status" class="upgrade-status"></p>
+            </main>
+        </div>
+
+        <div id="payment-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="payment-modal-title">
+            <div class="modal-content card payment-modal-panel">
+                <div class="payment-modal-header">
+                    <div>
+                        <p class="payment-modal-eyebrow">Pembayaran Aman</p>
+                        <h3 id="payment-modal-title">Checkout Premium</h3>
+                    </div>
+                    <button id="payment-close-btn" class="text-btn payment-close-btn" type="button" aria-label="Tutup pembayaran" data-action="close-payment">âœ•</button>
+                </div>
+                <p id="payment-modal-status" class="payment-modal-status">Menyiapkan pembayaranâ€¦</p>
+                <div id="snap-container" class="snap-container" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <div id="custom-popup" class="modal hidden" role="dialog" aria-modal="true">
+            <div class="modal-content card popup-panel">
+                <h3 id="popup-title">Konfirmasi</h3>
+                <p id="popup-message" class="popup-copy"></p>
+                <div id="popup-buttons" class="popup-actions"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script nomodule>
+        document.body.insertAdjacentHTML('afterbegin',
+            '<div id="file-protocol-warning" role="alert"><strong>Browser too old for modules.</strong> Use a modern browser and run <code>npm run dev</code>.</div>');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+</body>
+
+</html>
