@@ -12,8 +12,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" as="script">
-  <script type="module" crossorigin src="/siapskd/assets/index-D8CGmtNM.js"></script>
-  <link rel="stylesheet" crossorigin href="/siapskd/assets/index-D-qMoU1q.css">
+  <script type="module" crossorigin src="/assets/index-CU2kE7mx.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DgDZeRwQ.css">
 </head>
 
 <body>
@@ -560,18 +560,63 @@
             </main>
         </div>
 
-        <div id="payment-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="payment-modal-title">
-            <div class="modal-content card payment-modal-panel">
-                <div class="payment-modal-header">
-                    <div>
-                        <p class="payment-modal-eyebrow">Pembayaran Aman</p>
-                        <h3 id="payment-modal-title">Checkout Premium</h3>
+        <!-- CHECKOUT VIEW -->
+        <div id="checkout-screen" class="view hidden">
+            <main class="card checkout-panel">
+                <header class="checkout-header-bar">
+                    <h2>Checkout Premium</h2>
+                    <button class="text-btn back-to-upgrade-btn" type="button" data-action="close-payment">← Batal</button>
+                </header>
+                <div class="checkout-layout">
+                    <!-- Left Column: Plan details and trust -->
+                    <div class="checkout-info-column">
+                        <div class="checkout-summary-card">
+                            <span class="checkout-badge">Pro Plan</span>
+                            <h3 id="checkout-plan-name">Premium Bulanan</h3>
+                            <div class="checkout-price-row">
+                                <span id="checkout-plan-price" class="checkout-price">Rp 49.000</span>
+                                <span id="checkout-plan-duration" class="checkout-duration">/ 30 Hari</span>
+                            </div>
+                        </div>
+                        
+                        <div class="checkout-features-list-wrapper">
+                            <h4>Fitur Yang Anda Dapatkan:</h4>
+                            <ul class="checkout-features-ul">
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Akses bank soal HOTS & FR terbaru
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Kuota latihan harian tanpa batas
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Simulasi CAT SKD lengkap (110 Soal)
+                                </li>
+                                <li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                                    Analisis topik lemah & detail passing grade
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="checkout-security-card">
+                            <div class="security-badge">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg lock-icon"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                <span>Pembayaran 100% Aman</span>
+                            </div>
+                            <p>Transaksi Anda dienkripsi dengan standar keamanan industri dan diproses melalui payment gateway terverifikasi Midtrans.</p>
+                        </div>
                     </div>
-                    <button id="payment-close-btn" class="text-btn payment-close-btn" type="button" aria-label="Tutup pembayaran" data-action="close-payment">âœ•</button>
+
+                    <!-- Right Column: Midtrans Snap Frame -->
+                    <div class="checkout-frame-column">
+                        <p id="checkout-status" class="checkout-status-text">Menyiapkan pembayaran...</p>
+                        <div id="snap-container" class="snap-container" aria-live="polite"></div>
+                    </div>
                 </div>
-                <p id="payment-modal-status" class="payment-modal-status">Menyiapkan pembayaranâ€¦</p>
-                <div id="snap-container" class="snap-container" aria-live="polite"></div>
-            </div>
+            </main>
         </div>
 
         <!-- PAYWALL INTERCEPT MODAL -->
