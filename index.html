@@ -12,8 +12,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" as="script">
-  <script type="module" crossorigin src="/siapskd/assets/index-CzB6HWxK.js"></script>
-  <link rel="stylesheet" crossorigin href="/siapskd/assets/index-CYLCaKtX.css">
+  <script type="module" crossorigin src="/siapskd/assets/index-D8CGmtNM.js"></script>
+  <link rel="stylesheet" crossorigin href="/siapskd/assets/index-D-qMoU1q.css">
 </head>
 
 <body>
@@ -40,7 +40,7 @@
                 <span id="quota-chip" class="quota-chip">Kuota: —</span>
             </div>
             <div class="status-bar-right">
-                <button id="theme-toggle" class="text-btn" aria-label="Toggle dark mode" type="button">🌙</button>
+                <button id="theme-toggle" class="text-btn" aria-label="Toggle dark mode" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
                 <div id="auth-actions" role="group"></div>
             </div>
         </div>
@@ -56,7 +56,7 @@
         <div id="auth-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
             <div class="modal-content card auth-modal-panel">
                 <div class="auth-modal-header">
-                    <div class="auth-modal-icon">🔐</div>
+                    <div class="auth-modal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
                     <div>
                         <p class="auth-modal-eyebrow">Akun SKD</p>
                         <h3 id="auth-modal-title">Masuk</h3>
@@ -70,7 +70,7 @@
                 <div class="password-wrapper">
                     <input type="password" id="auth-password" class="auth-input" placeholder="••••••••"
                         autocomplete="current-password" required>
-                    <button type="button" id="toggle-password-btn" class="password-toggle-btn" aria-label="Tampilkan password">👁️</button>
+                    <button type="button" id="toggle-password-btn" class="password-toggle-btn" aria-label="Tampilkan password"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
                 </div>
                 <p id="auth-error-hint" class="auth-error-hint hidden" role="alert"></p>
                 <form id="auth-form" class="auth-action-stack" autocomplete="on">
@@ -314,7 +314,7 @@
         <div id="mode-modal" class="view hidden modal" role="dialog" aria-modal="true">
             <div class="modal-content card mode-confirmation-panel">
                 <div class="mode-confirmation-header">
-                    <div class="mode-confirmation-icon">⚙️</div>
+                    <div class="mode-confirmation-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
                     <div class="mode-confirmation-copy">
                         <p class="mode-confirmation-eyebrow">Konfirmasi Mode</p>
                         <h2 id="modal-quiz-title">Pilih Mode</h2>
@@ -335,14 +335,14 @@
                 </div>
                 <div class="mode-choice-grid">
                     <button class="mode-choice-card learning-mode" type="button" data-action="confirm-learning">
-                        <span class="mode-choice-icon">📖</span>
+                        <span class="mode-choice-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg></span>
                         <span class="mode-choice-copy">
                             <span class="mode-choice-title">Learning Mode</span>
                             <span class="mode-choice-subtitle">Belajar dengan pembahasan setelah jawab.</span>
                         </span>
                     </button>
                     <button class="mode-choice-card test-mode" type="button" data-action="confirm-test">
-                        <span class="mode-choice-icon">⏱️</span>
+                        <span class="mode-choice-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
                         <span class="mode-choice-copy">
                             <span class="mode-choice-title">Test Mode</span>
                             <span class="mode-choice-subtitle">Simulasi ujian dengan timer.</span>
@@ -383,8 +383,8 @@
                         <span id="quiz-mode-badge" class="quiz-mode-badge">Practice Mode</span>
                     </div>
                     <div class="quiz-top-actions">
-                        <button id="nav-btn" class="quiz-icon-btn" type="button" aria-label="Navigasi Soal">📋</button>
-                        <button id="quit-btn" class="quiz-icon-btn quit" type="button" aria-label="Keluar">✕</button>
+                        <button id="nav-btn" class="quiz-icon-btn" type="button" aria-label="Navigasi Soal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></svg></button>
+                        <button id="quit-btn" class="quiz-icon-btn quit" type="button" aria-label="Keluar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
                     </div>
                 </section>
                 <section class="quiz-progress-panel slim">
@@ -412,7 +412,7 @@
                 </main>
                 <footer class="fixed-bottom-nav">
                     <button id="prevBtn" class="nav-btn secondary" type="button">← Kembali</button>
-                    <button id="doubtBtn" class="nav-btn doubt-btn" type="button">🤔 Ragu</button>
+                    <button id="doubtBtn" class="nav-btn doubt-btn" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg button-icon"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Ragu</button>
                     <button id="nextBtn" class="nav-btn primary" type="button">Lanjut →</button>
                 </footer>
             </div>
@@ -489,10 +489,7 @@
                     <button id="review-toggle-btn" class="secondary-btn" type="button">Lihat Pembahasan</button>
                     <button class="primary-btn" type="button" data-action="show-menu">Kembali ke Menu</button>
                 </div>
-                <div id="review-section" class="review-list hidden">
-                    <h3>Pembahasan</h3>
-                    <div id="review-container"></div>
-                </div>
+
             </main>
         </div>
 
@@ -581,7 +578,7 @@
         <div id="paywall-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="paywall-modal-title">
             <div class="modal-content card paywall-modal-panel">
                 <div class="paywall-modal-header">
-                    <div class="paywall-modal-icon">🚀</div>
+                    <div class="paywall-modal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5s2.25-1 3.5-2.5"/><path d="M12 12 2 22l1-5 1-1 5-1Z"/><path d="M12 12 22 2l-5 1-1 1-1 5Z"/><circle cx="12" cy="12" r="2"/></svg></div>
                     <div>
                         <p class="paywall-modal-eyebrow">Batas Latihan Harian</p>
                         <h3 id="paywall-modal-title">Latihan Hari Ini Sudah Maksimal!</h3>
