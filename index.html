@@ -8,12 +8,13 @@
         content="Platform latihan SKD (Seleksi Kompetensi Dasar) - TWK, TIU, dan TKP dengan mode Learning & Test">
     <meta name="theme-color" content="#3b82f6">
 
-    <title>SKD Training Platform</title>
+    <title>SiapSKD - Platform Latihan CAT CPNS</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" as="script">
-  <script type="module" crossorigin src="/assets/index-3DH7TaMi.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-B0G7Ynes.css">
+  <script type="module" crossorigin src="/assets/index-ySYFgyIf.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Dby3ezcy.css">
 </head>
 
 <body>
@@ -34,36 +35,72 @@
     </script>
     <div class="app-container">
 
-        <div id="auth-status-bar" class="status-bar compact">
-            <div class="status-bar-left">
-                <span id="user-display" aria-live="polite"></span>
-                <span id="quota-chip" class="quota-chip">Kuota: —</span>
-            </div>
-            <div class="status-bar-right">
-                <button id="theme-toggle" class="text-btn" aria-label="Toggle dark mode" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
-                <div id="auth-actions" role="group"></div>
-            </div>
-        </div>
+        <header class="app-header">
+            <div class="header-top-bar flex flex-row justify-between items-center w-full py-3 px-4">
+                <!-- Left Column: Logo -->
+                <div class="nav-logo-container" data-action="show-menu" style="cursor: pointer;" aria-label="SiapSKD Beranda">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 100" class="brand-logo-svg">
+                        <defs>
+                            <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#1D4ED8"/>
+                                <stop offset="100%" stop-color="#3B82F6"/>
+                            </linearGradient>
+                            <linearGradient id="goalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#39FF14"/>
+                                <stop offset="100%" stop-color="#00C800"/>
+                            </linearGradient>
+                        </defs>
 
-        <nav id="main-nav" class="main-nav">
-            <button class="text-btn" type="button" data-action="show-menu">Beranda</button>
-            <button class="text-btn" type="button" data-action="show-progress">Progres</button>
-            <button class="text-btn" type="button" data-action="show-bookmarks">Bookmark</button>
-            <button class="text-btn upgrade-nav-btn" type="button" data-action="show-upgrade">Upgrade</button>
-        </nav>
+                        <g transform="translate(10, 15)">
+                            <rect x="0" y="45" width="20" height="20" rx="6" fill="#D1D5DB" opacity="0.4"/>
+                            <rect x="18" y="25" width="20" height="20" rx="6" fill="url(#pathGradient)" opacity="0.8"/>
+                            <rect x="36" y="5" width="20" height="20" rx="6" fill="url(#pathGradient)"/>
+                            
+                            <circle cx="68" cy="15" r="10" fill="url(#goalGradient)"/>
+                            <path d="M 64 15 L 68 19 L 74 12" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+
+                        <text x="100" y="66" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" letter-spacing="-0.5">
+                            <tspan font-weight="400" font-size="46" fill="url(#pathGradient)">Siap</tspan>
+                            <tspan font-weight="700" font-size="46" fill="url(#goalGradient)">SKD</tspan>
+                        </text>
+                    </svg>
+                </div>
+
+                <!-- Right Column: User Controls & Dynamic Avatar Dropdown -->
+                <div class="header-controls flex flex-row items-center gap-3">
+                    <button id="theme-toggle" class="icon-btn theme-toggle-btn" aria-label="Toggle dark mode" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                        </svg>
+                    </button>
+                    <!-- Auth Actions dynamic container -->
+                    <div id="auth-controls" class="auth-controls"></div>
+                </div>
+            </div>
+
+            <!-- Secondary Navigation Row -->
+            <nav id="main-nav" class="secondary-nav-row flex flex-row items-center gap-6 overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-slate-700/50 hide-scrollbar">
+                <button class="nav-link-btn text-blue-500 font-semibold transition-colors" type="button" data-action="show-menu">Beranda</button>
+                <button class="nav-link-btn text-sm font-medium text-slate-400 hover:text-white transition-colors" type="button" data-action="show-progress">Progres</button>
+                <button class="nav-link-btn text-sm font-medium text-slate-400 hover:text-white transition-colors" type="button" data-action="show-bookmarks">Bookmark</button>
+                <button class="nav-link-btn upgrade-nav-btn text-sm font-medium text-slate-400 hover:text-white transition-colors" type="button" data-action="show-upgrade">Upgrade</button>
+            </nav>
+        </header>
 
         <!-- AUTH MODAL -->
         <div id="auth-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
             <div class="modal-content card auth-modal-panel">
                 <div class="auth-modal-header">
-                    <div class="auth-modal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                    <div class="auth-modal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
                     <div>
-                        <p class="auth-modal-eyebrow">Akun SKD</p>
-                        <h3 id="auth-modal-title">Masuk</h3>
+                        <p class="auth-modal-eyebrow">AKUN PEJUANG SKD</p>
+                        <h3 id="auth-modal-title">Selamat Datang Kembali</h3>
                     </div>
                 </div>
-                <p class="auth-modal-copy">Masuk untuk kuota 40 soal/hari (Free). Tamu hanya demo 5 soal/hari.</p>
+                <p class="auth-modal-copy">Lanjutkan progres belajarmu, atau daftar sekarang untuk mengamankan kuota 40 soal/hari dan simpan riwayat skormu secara gratis.</p>
                 <label class="auth-field-label" for="auth-email">Alamat Email</label>
+                <p id="auth-email-warning" class="auth-email-warning hidden" role="alert"></p>
                 <input type="email" id="auth-email" class="auth-input" placeholder="nama@contoh.com"
                     autocomplete="email" autocapitalize="none" autocorrect="off" inputmode="email" required>
                 <label class="auth-field-label" for="auth-password">Password</label>
@@ -72,10 +109,13 @@
                         autocomplete="current-password" required>
                     <button type="button" id="toggle-password-btn" class="password-toggle-btn" aria-label="Tampilkan password"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
                 </div>
+                <div id="forgot-password-container" class="forgot-password-container">
+                    <a href="#" id="forgot-password-link" class="forgot-password-link">Lupa password?</a>
+                </div>
                 <p id="auth-error-hint" class="auth-error-hint hidden" role="alert"></p>
                 <form id="auth-form" class="auth-action-stack" autocomplete="on">
                     <button id="auth-primary-btn" class="primary-btn" type="submit">Masuk</button>
-                    <button id="auth-switch-btn" class="secondary-btn auth-switch-btn" type="button">Belum punya akun? Daftar</button>
+                    <button id="auth-switch-btn" class="secondary-btn auth-switch-btn" type="button">Belum punya akun? Daftar Gratis</button>
                 </form>
                 <div class="auth-modal-actions">
                     <button id="auth-close-btn" class="text-btn auth-close-btn" type="button">Tutup</button>
@@ -385,7 +425,7 @@
         <!-- MENU -->
         <div id="menu-screen" class="view">
             <header>
-                <h1>SKD Training</h1>
+                <h1>SiapSKD</h1>
                 <p class="subtitle">Latihan Seleksi Kompetensi Dasar — TWK, TIU, TKP</p>
             </header>
             <div id="menu-upgrade-bar" class="menu-upgrade-bar">
@@ -503,6 +543,7 @@
                         <span id="quiz-mode-badge" class="quiz-mode-badge">Practice Mode</span>
                     </div>
                     <div class="quiz-top-actions">
+                        <button id="text-size-btn" class="quiz-icon-btn" type="button" aria-label="Ukuran Teks"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M4 19L9 5l5 14" /><path d="M6.5 14h5" /><path d="M20 14v5" /><path d="M20 16.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0z" /></svg></button>
                         <button id="bookmark-btn" class="quiz-icon-btn" type="button" aria-label="Bookmark Soal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="monochromatic-svg"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg></button>
                         <button id="nav-btn" class="quiz-icon-btn" type="button" aria-label="Navigasi Soal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></svg></button>
                         <button id="quit-btn" class="quiz-icon-btn quit" type="button" aria-label="Keluar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -520,7 +561,6 @@
                 <main class="quiz-content-scroll">
                     <section class="card quiz-main">
                         <h2 id="question" class="question-text"></h2>
-                        <div class="options-heading">Jawaban yang tersedia</div>
                         <div id="options" class="options-grid" role="radiogroup"></div>
                         <div id="feedback" class="feedback-area hidden" aria-live="polite">
                             <div class="feedback-header">
@@ -589,26 +629,39 @@
                             <circle id="score-progress-ring" class="score-progress-ring" cx="50" cy="50" r="44"></circle>
                         </svg>
                         <div class="score-circle-text">
-                            <span id="final-score">0</span>
-                            <span class="score-label">Skor</span>
+                            <span id="final-score">0%</span>
+                            <span class="score-label">AKURASI</span>
                         </div>
                     </div>
                     <p id="results-performance-text" class="results-performance-text"></p>
                 </div>
-                <div class="results-metrics">
-                    <div class="metric-card success-card">
-                        <span class="metric-label">Benar / Total</span>
-                        <strong id="results-correct-count">0</strong>
+                <div class="results-metrics-grid">
+                    <div class="metric-grid-card success">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="metric-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <div class="metric-info">
+                            <span class="metric-title">Benar</span>
+                            <strong id="results-correct-count">0</strong>
+                        </div>
                     </div>
-                    <div class="metric-card warning-card">
-                        <span class="metric-label">Tidak Dijawab</span>
-                        <strong id="results-unanswered-count">0</strong>
+                    <div class="metric-grid-card danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="metric-icon"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                        <div class="metric-info">
+                            <span class="metric-title">Salah</span>
+                            <strong id="results-incorrect-count">0</strong>
+                        </div>
+                    </div>
+                    <div class="metric-grid-card muted">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="metric-icon"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                        <div class="metric-info">
+                            <span class="metric-title">Kosong</span>
+                            <strong id="results-unanswered-count">0</strong>
+                        </div>
                     </div>
                 </div>
                 <div id="results-pacing-section" class="results-pacing-section"></div>
                 <div class="results-actions">
-                    <button id="review-toggle-btn" class="secondary-btn" type="button">Lihat Pembahasan</button>
-                    <button class="primary-btn" type="button" data-action="show-menu">Kembali ke Menu</button>
+                    <button id="review-toggle-btn" class="primary-btn" type="button">Lihat Pembahasan</button>
+                    <button class="secondary-btn" type="button" data-action="show-menu">Kembali ke Menu</button>
                 </div>
 
             </main>
@@ -657,6 +710,107 @@
                     <button class="text-btn" type="button" data-action="show-menu">← Menu</button>
                 </header>
                 <div id="bookmarks-list" class="bookmarks-list"></div>
+            </main>
+        </div>
+
+        <!-- PROFILE -->
+        <div id="profile-screen" class="view hidden">
+            <main class="card profile-panel">
+                <header class="profile-header">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="mode-confirmation-header" style="margin-bottom: 0;">
+                            <div class="mode-confirmation-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </div>
+                            <div class="mode-confirmation-copy">
+                                <p class="mode-confirmation-eyebrow">PENGATURAN AKUN</p>
+                                <h2>Profil</h2>
+                            </div>
+                        </div>
+                        <button class="text-btn" type="button" data-action="show-menu">← Menu</button>
+                    </div>
+                    <p class="profile-description">Fokuskan belajarmu. Atur formasi impianmu agar sistem dapat menyesuaikan target Passing Grade secara otomatis.</p>
+                </header>
+                
+                <!-- Account Tier Card -->
+                <div class="profile-account-card">
+                    <div class="profile-user-info">
+                        <p id="profile-user-email" class="profile-email">—</p>
+                        <div>
+                            <span id="profile-user-tier" class="profile-tier-badge">Akun Gratis</span>
+                        </div>
+                    </div>
+                    <button id="profile-upgrade-badge" class="primary-btn sm upgrade-action-btn" type="button" data-action="show-upgrade">Upgrade ke Pro</button>
+                </div>
+
+                <!-- Target Formasi Form -->
+                <form id="profile-form" class="profile-form">
+                    <div class="profile-form-group">
+                        <label for="profile-instansi" class="auth-field-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg profile-icon"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="16"/><line x1="15" y1="22" x2="15" y2="16"/><line x1="9" y1="16" x2="15" y2="16"/><path d="M8 6h2v2H8zm6 0h2v2h-2zm-6 4h2v2H8zm6 0h2v2h-2z"/></svg>
+                            <span>Instansi Tujuan</span>
+                        </label>
+                        <select id="profile-instansi" class="auth-input" style="margin-bottom: 0;">
+                            <option value="" disabled selected>Memuat daftar instansi...</option>
+                        </select>
+                        <input type="text" id="profile-instansi-custom" class="auth-input profile-input-custom" style="display: none; margin-bottom: 0;" placeholder="Ketik nama instansi lengkap Anda...">
+                    </div>
+
+                    <div class="profile-form-group">
+                        <label for="profile-jabatan" class="auth-field-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg profile-icon"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                            <span>Jabatan / Formasi</span>
+                        </label>
+                        <select id="profile-jabatan" class="auth-input" style="margin-bottom: 0;">
+                            <option value="" disabled selected>Memuat daftar jabatan...</option>
+                        </select>
+                        <input type="text" id="profile-jabatan-custom" class="auth-input profile-input-custom" style="display: none; margin-bottom: 0;" placeholder="Ketik nama jabatan/formasi lengkap Anda...">
+                    </div>
+
+                    <div class="profile-form-group">
+                        <label for="profile-jalur" class="auth-field-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg profile-icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <span>Jalur Pendaftaran</span>
+                        </label>
+                        <select id="profile-jalur" class="auth-input" style="margin-bottom: 0;">
+                            <option value="umum">Umum</option>
+                            <option value="cumlaude">Cumlaude (Lulusan Terbaik)</option>
+                            <option value="disabilitas">Disabilitas</option>
+                            <option value="diaspora">Diaspora</option>
+                            <option value="papua">Putra/i Papua</option>
+                        </select>
+                    </div>
+                </form>
+
+                <!-- Dynamic Passing Grade Card -->
+                <div class="passing-grade-card">
+                    <h4>Target Passing Grade Kamu</h4>
+                    <div class="passing-grade-grid">
+                        <div class="passing-grade-col">
+                            <span class="passing-grade-label">TWK</span>
+                            <strong id="pg-twk" class="passing-grade-value">65</strong>
+                        </div>
+                        <div class="passing-grade-col">
+                            <span class="passing-grade-label">TIU</span>
+                            <strong id="pg-tiu" class="passing-grade-value">80</strong>
+                        </div>
+                        <div class="passing-grade-col">
+                            <span class="passing-grade-label">TKP</span>
+                            <strong id="pg-tkp" class="passing-grade-value">166</strong>
+                        </div>
+                    </div>
+                    <p class="passing-grade-help">Target akurasi di halaman Progres akan otomatis disesuaikan dengan angka ini.</p>
+                </div>
+
+                <!-- Save Action -->
+                <div class="profile-actions" style="margin-top: 8px;">
+                    <button id="profile-save-btn" class="primary-btn" type="button">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            <span>Simpan Formasi</span>
+                        </div>
+                    </button>
+                </div>
             </main>
         </div>
 
@@ -789,23 +943,142 @@
             </main>
         </div>
 
+        <!-- POST-PURCHASE SUCCESS VIEW -->
+        <div id="payment-success-screen" class="view hidden">
+            <main class="card success-panel text-center">
+                <!-- Header Celebration -->
+                <div class="success-hero-header">
+                    <div class="success-badge-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="success-badge-icon">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                            <path d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <h2>Akses Pro Aktif.<br>Selamat Bergabung, Pejuang NIP!</h2>
+                    <p class="success-subtitle">Pembayaran berhasil. Ini adalah investasi cerdas untuk masa depanmu. Seluruh senjata rahasia penakluk SKD kini resmi terbuka.</p>
+                </div>
+
+                <!-- Onboarding Cards -->
+                <div class="success-onboarding-container">
+                    <!-- Card 1 -->
+                    <div class="success-onboarding-card">
+                        <div class="success-card-icon-wrapper" style="color: #60a5fa; background: rgba(96, 165, 250, 0.12);">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="success-card-icon">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <div class="success-card-content">
+                            <h3 class="success-card-title">1. Evaluasi Analisis Pacing</h3>
+                            <p class="success-card-copy">Cek halaman hasil latihanmu. Fitur analisis kecepatan per soal kini aktif penuh untuk melatih manajemen waktu ujianmu.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="success-onboarding-card">
+                        <div class="success-card-icon-wrapper" style="color: #f59e0b; background: rgba(245, 158, 11, 0.12);">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="success-card-icon">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                        </div>
+                        <div class="success-card-content">
+                            <h3 class="success-card-title">2. Taklukkan Soal HOTS</h3>
+                            <p class="success-card-copy">Algoritma SmartMix kamu kini terhubung dengan ribuan bank soal tingkat Advanced & HOTS. Mari mulai sesi pertamamu.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="success-onboarding-card">
+                        <div class="success-card-icon-wrapper" style="color: #a78bfa; background: rgba(167, 139, 250, 0.12);">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="success-card-icon">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="success-card-content">
+                            <h3 class="success-card-title">3. Buka Semua Try Out & Peringkat</h3>
+                            <p class="success-card-copy">Seluruh gembok paket simulasi BKN telah terbuka. Kerjakan kapan saja dan pantau posisimu di Peringkat Nasional secara detail.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="success-actions">
+                    <button class="primary-btn success-cta-btn" type="button" data-action="show-menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-rocket-icon" style="width: 18px; height: 18px; margin-right: 8px; display: inline-block; vertical-align: text-bottom;">
+                            <path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5s2.25-1 3.5-2.5M14 2c1.7 1.7 1.7 4.5 0 6.2M9 12c-1.7-1.7-1.7-4.5 0-6.2M22 2l-6 6M2 22l6-6M9 12l2 2 4-4M19 5l-4.24 4.24M14.76 9.24L10.5 13.5"/>
+                        </svg>
+                        Mulai Sesi Pro Pertamamu
+                    </button>
+                    <button class="text-btn success-receipt-btn" type="button" id="show-receipt-btn">
+                        Lihat Bukti Pembayaran
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <!-- TRANSACTION RECEIPT MODAL -->
+        <div id="receipt-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="receipt-modal-title">
+            <div class="modal-content card receipt-modal-panel">
+                <header class="receipt-header">
+                    <h3 id="receipt-modal-title">Bukti Pembayaran</h3>
+                    <button class="close-receipt-btn" type="button" id="close-receipt-btn" aria-label="Tutup bukti pembayaran">×</button>
+                </header>
+                <div class="receipt-body">
+                    <div class="receipt-ticket">
+                        <div class="receipt-logo">SKD BKN PRO</div>
+                        <div class="receipt-divider"></div>
+                        <div class="receipt-row">
+                            <span>No. Transaksi</span>
+                            <strong id="receipt-id">—</strong>
+                        </div>
+                        <div class="receipt-row">
+                            <span>Tanggal</span>
+                            <span id="receipt-date">—</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span>Email Akun</span>
+                            <span id="receipt-email">—</span>
+                        </div>
+                        <div class="receipt-row">
+                            <span>Status</span>
+                            <span class="status-badge-paid">LUNAS / AKTIF</span>
+                        </div>
+                        <div class="receipt-divider"></div>
+                        <div class="receipt-row highlight">
+                            <span>Paket Langganan</span>
+                            <strong id="receipt-plan-name">—</strong>
+                        </div>
+                        <div class="receipt-row highlight">
+                            <span>Total Pembayaran</span>
+                            <strong id="receipt-price">—</strong>
+                        </div>
+                        <div class="receipt-watermark">PAID</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- PAYWALL INTERCEPT MODAL -->
         <div id="paywall-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="paywall-modal-title">
             <div class="modal-content card paywall-modal-panel">
                 <div class="paywall-modal-header">
-                    <div class="paywall-modal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5s2.25-1 3.5-2.5"/><path d="M12 12 2 22l1-5 1-1 5-1Z"/><path d="M12 12 22 2l-5 1-1 1-1 5Z"/><circle cx="12" cy="12" r="2"/></svg></div>
+                    <div class="paywall-modal-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
                     <div>
-                        <p class="paywall-modal-eyebrow">Batas Latihan Harian</p>
-                        <h3 id="paywall-modal-title">Latihan Hari Ini Sudah Maksimal!</h3>
+                        <p class="paywall-modal-eyebrow">AKSES TERBATAS</p>
+                        <h3 id="paywall-modal-title">Sedang On-Fire? Lanjut Belajar Sekarang!</h3>
                     </div>
                 </div>
-                <p class="paywall-modal-copy">Ingin lanjut ke soal ke-6? Buat akun gratis (kurang dari 1 menit) dan dapatkan 40 soal setiap hari.</p>
+                <p class="paywall-modal-copy">Sayang banget kalau berhenti di sini! Daftar akun gratis (hanya 30 detik) untuk langsung lanjut ke soal berikutnya, dapatkan kuota 40 soal/hari, dan simpan riwayat skormu.</p>
                 <div class="paywall-action-stack">
-                    <button id="paywall-signup-btn" class="primary-btn guest-free-btn-style" type="button">Buat Akun Gratis</button>
-                    <button id="paywall-results-btn" class="secondary-btn" type="button">Lihat Hasil Latihan</button>
-                </div>
-                <div class="paywall-modal-actions">
-                    <button id="paywall-close-btn" class="text-btn paywall-close-btn" type="button">Kembali ke Ujian</button>
+                    <button id="paywall-signup-btn" class="primary-btn guest-free-btn-style" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg button-icon" style="width: 16px; height: 16px; margin-right: 6px; display: inline-block; vertical-align: text-bottom;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                        Daftar Akun Gratis
+                    </button>
+                    <button id="paywall-results-btn" class="secondary-btn" type="button">Akhiri & Lihat Pembahasan</button>
                 </div>
             </div>
         </div>
