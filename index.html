@@ -13,8 +13,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" as="script">
-  <script type="module" crossorigin src="/assets/index-ySYFgyIf.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Dby3ezcy.css">
+  <script type="module" crossorigin src="/assets/index-C9iOEVVE.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-d4s1E6Xd.css">
 </head>
 
 <body>
@@ -69,6 +69,8 @@
 
                 <!-- Right Column: User Controls & Dynamic Avatar Dropdown -->
                 <div class="header-controls flex flex-row items-center gap-3">
+                    <!-- Daily Streak Container -->
+                    <div id="daily-streak-container" style="display: none;" title="Daily Streak"></div>
                     <button id="theme-toggle" class="icon-btn theme-toggle-btn" aria-label="Toggle dark mode" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="monochromatic-svg">
                             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
@@ -251,7 +253,7 @@
                                 </li>
                                 <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="pricing-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
-                                    Sesi 1 s/d 35 Soal per Latihan
+                                    1 s/d 35 Soal per Sesi Latihan
                                 </li>
                                 <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="pricing-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
@@ -297,7 +299,7 @@
                         <div class="pricing-card premium-tier">
                             <div class="pricing-card-header">
                                 <h3>Pro - 30 Hari</h3>
-                                <div class="price">Rp 49.000<span class="price-period"> / paket</span></div>
+                                <div class="price">Rp 49.000</div>
                                 <p class="pricing-subtitle" style="font-weight: 600; color: var(--success); margin-bottom: 8px;">(Hanya Rp1.600-an per hari)</p>
                                 <p class="pricing-subtitle">Akses komprehensif dengan analitik performa lanjutan untuk hasil terukur.</p>
                             </div>
@@ -308,7 +310,7 @@
                                 </li>
                                 <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="pricing-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
-                                    Sesi 1 s/d 45 Soal per Latihan
+                                    1 s/d 45 Soal per Sesi Latihan
                                 </li>
                                 <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="pricing-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
@@ -355,7 +357,7 @@
                             <div class="pricing-badge-popular">PALING HEMAT</div>
                             <div class="pricing-card-header">
                                 <h3>Pro - 90 Hari</h3>
-                                <div class="price" style="color: #f59e0b;">Rp 129.000<span class="price-period"> / paket</span></div>
+                                <div class="price" style="color: #f59e0b;">Rp 129.000</div>
                                 <p class="pricing-subtitle" style="font-weight: 600; color: #f59e0b; margin-bottom: 8px;">(Lebih hemat! Hanya Rp1.400-an per hari)</p>
                                 <p class="pricing-subtitle">Akses komprehensif dengan analitik performa lanjutan untuk hasil terukur.</p>
                             </div>
@@ -366,7 +368,7 @@
                                 </li>
                                 <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="pricing-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
-                                    Sesi 1 s/d 45 Soal per Latihan
+                                    1 s/d 45 Soal per Sesi Latihan
                                 </li>
                                 <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="pricing-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
@@ -733,7 +735,7 @@
                 </header>
                 
                 <!-- Account Tier Card -->
-                <div class="profile-account-card">
+                <div id="profile-account-card" class="profile-account-card">
                     <div class="profile-user-info">
                         <p id="profile-user-email" class="profile-email">—</p>
                         <div>
